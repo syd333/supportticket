@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
+import { register } from '../features/auth/authSlice'
 import { toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
+import Spinner from '../components/Spinner'
 
 function Register() {
 const [formData, setFormData] = useState({
@@ -16,6 +18,8 @@ const navigate = useNavigate()
 const dispatch = useDispatch()
 
 const { name, email, password, password2 } = formData
+
+const {user, isSuccess, message, isLoading } = useSelector((state) => state.auth)
 
 const onChange = (e) => {
     setFormData((prevState) => ({
@@ -35,14 +39,18 @@ const onSubmit = (e) => {
         email,
         password,
       }
+         dispatch(register(userData))
+        .unwrap()
+        .then((user) => {
+          toast.success(`Registered new user - ${user.name}`)
+          navigate('/')
+        })
+        .catch(toast.error)
     }
-    //   dispatch(register(userData))
-    //     .unwrap()
-    //     .then((user) => {
-    //       toast.success(`Registered new user - ${user.name}`)
-    //       navigate('/')
-    //     })
-    //     .catch(toast.error)
+}
+
+if (isLoading) {
+  return  <Spinner/>
 }
 
   return (
