@@ -17,6 +17,7 @@ function Tickets() {
   if (!tickets) {
     return <Spinner />
   }
+  console.log(tickets)
 
   return (
     <>

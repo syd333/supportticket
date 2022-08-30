@@ -3,8 +3,12 @@ import { extractErrorMessage } from '../../utils'
 import ticketService from './ticketService'
 
 const initialState = {
-  tickets: null,
-  ticket: null,
+  tickets: [],
+  ticket: {},
+    isError: false,
+    isSuccess: false,
+    isLoading: false,
+    message: '',
 }
 
 // Create new ticket
@@ -71,8 +75,13 @@ export const ticketSlice = createSlice({
       .addCase(getTickets.fulfilled, (state, action) => {
         state.tickets = action.payload
       })
+        .addCase(getTicket.pending, (state) => {
+        state.isLoading = true
+      })
       .addCase(getTicket.fulfilled, (state, action) => {
-        state.ticket = action.payload
+         state.isLoading = false
+         state.isSuccess = true
+         state.ticket = action.payload
       })
       .addCase(closeTicket.fulfilled, (state, action) => {
         state.ticket = action.payload

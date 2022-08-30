@@ -31,15 +31,14 @@ function Ticket() {
 
 //   const { notes } = useSelector((state) => state.notes)
 
-//   // const params = useParams()
-//   const navigate = useNavigate()
-//   const dispatch = useDispatch()
-//   const { ticketId } = useParams()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { ticketId } = useParams()
 
-//   useEffect(() => {
-//     dispatch(getTicket(ticketId)).unwrap().catch(toast.error)
-//     // dispatch(getNotes(ticketId)).unwrap().catch(toast.error)
-//   }, [ticketId, dispatch])
+  useEffect(() => {
+    dispatch(getTicket(ticketId))
+    // dispatch(getNotes(ticketId)).unwrap().catch(toast.error)
+  }, [ticketId, dispatch])
 
 //   // Close ticket
 //   const onTicketClose = () => {
@@ -64,12 +63,12 @@ console.log(ticket)
        <div className='ticket-page'>
       <header className='ticket-header'>
         <BackButton />
-        {/* <h2>
+         <h2>
           Ticket ID: {ticket._id}
           <span className={`status status-${ticket.status}`}>
             {ticket.status}
           </span>
-        </h2>  */}
+        </h2>  
         {/* <h3>
           Date Submitted: {new Date(ticket.createdAt).toLocaleString('en-US')}
         </h3>
